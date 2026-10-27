@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Daily Check-in | Study Shield</title>
+
+    <link rel="stylesheet" href="{% static 'css/daily_checkin.css' %}">
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+</head>
+
+
+<body>
+
+
+<div class="checkin-card">
+
+
+    <div class="icon">
+        🌤️
+    </div>
+
+
+    <h1>
+        How was your day?
+    </h1>
+
+
+    <p class="subtitle">
+        Tell us how you're feeling so we can create a better study plan.
+    </p>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="moods">
+
+
+            <label class="mood-option">
+
+                <input
+                    type="radio"
+                    name="mood"
+                    value="Great"
+                    required
+                >
+
+                <span class="emoji">
+                    😊
+                </span>
+
+                <span class="mood-name">
+                    Great
+                </span>
+
+            </label>
+
+
+            <label class="mood-option">
+
+                <input
+                    type="radio"
+                    name="mood"
+                    value="Good"
+                >
+
+                <span class="emoji">
+                    🙂
+                </span>
+
+                <span class="mood-name">
+                    Good
+                </span>
+
+            </label>
+
+
+            <label class="mood-option">
+
+                <input
+                    type="radio"
+                    name="mood"
+                    value="Okay"
+                >
+
+                <span class="emoji">
+                    😐
+                </span>
+
+                <span class="mood-name">
+                    Okay
+                </span>
+
+            </label>
+
+
+            <label class="mood-option">
+
+                <input
+                    type="radio"
+                    name="mood"
+                    value="Tired"
+                >
+
+                <span class="emoji">
+                    😴
+                </span>
+
+                <span class="mood-name">
+                    Tired
+                </span>
+
+            </label>
+
+
+            <label class="mood-option">
+
+                <input
+                    type="radio"
+                    name="mood"
+                    value="Very Tired"
+                >
+
+                <span class="emoji">
+                    😫
+                </span>
+
+                <span class="mood-name">
+                    Very Tired
+                </span>
+
+            </label>
+
+
+        </div>
+
+
+        <button type="submit">
+            Continue →
+        </button>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

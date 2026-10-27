@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Focus Sessions - Study Shield</title>
+
+    
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+
+
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/sessions.css' %}">
+
+
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <img
+                src="{% static 'student/studylogo.jpeg' %}"
+                alt="Study Shield Logo"
+            >
+
+        </div>
+
+
+      <div style="display: flex; align-items: center; gap: 25px;">
+
+    <a href="/challenges/" class="home">
+        Challenges
+    </a>
+
+    <a href="/" class="home">
+        Home
+    </a>
+
+</div>
+
+    </nav>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="container">
+
+
+        <div class="heading">
+
+            <div class="icon">
+                📊
+            </div>
+
+
+            <h1>
+                Saved Focus Sessions
+            </h1>
+
+
+            <p>
+                Track your previous and active focus sessions.
+            </p>
+
+        </div>
+
+
+        {% if sessions %}
+
+            <div class="sessions-grid">
+
+
+                {% for session in sessions %}
+
+                    <div class="session-card">
+
+
+                        <div class="session-top">
+
+                            <div class="session-title">
+                                🎯 Focus Session
+                            </div>
+
+
+                            {% if session.status == "Active" %}
+
+                                <div class="status active">
+                                    ● Active
+                                </div>
+
+                            {% else %}
+
+                                <div class="status inactive">
+                                    ● Inactive
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Focus Time
+                            </span>
+
+
+                            <span class="value">
+                                ⏱️ {{ session.focus_time }} Minutes
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Website
+                            </span>
+
+
+                            <span class="value">
+                                🚫 {{ session.website }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span class="label">
+                                Created
+                            </span>
+
+
+                            <span class="value">
+                                {{ session.created_at }}
+                            </span>
+
+                        </div>
+
+                        {% if session.status == "Inactive" %}
+
+<div class="info">
+
+    <span class="label">
+        How would you rate this session?
+    </span>
+
+    <form method="POST" action="/save-session-rating/{{ session.id }}/">
+
+        {% csrf_token %}
+
+        <div style="
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        ">
+
+            {% for star in "12345" %}
+
+                <button
+                    type="submit"
+                    name="rating"
+                    value="{{ forloop.counter }}"
+                    title="Give {{ forloop.counter }} star{% if forloop.counter > 1 %}s{% endif %}"
+                    style="
+                        border: none;
+                        background: none;
+                        font-size: 24px;
+                        cursor: pointer;
+                        padding: 0;
+                        color: #EC4899;
+                    "
+                >
+                    {% if session.session_rating >= forloop.counter %}
+                        ⭐
+                    {% else %}
+                        ☆
+                    {% endif %}
+                </button>
+
+            {% endfor %}
+
+        </div>
+
+        {% if session.session_rating > 0 %}
+            <span style="
+                display: block;
+                margin-top: 6px;
+                color: #A1A1AA;
+                font-size: 13px;
+            ">
+                You rated this session {{ session.session_rating }}/5
+            </span>
+        {% endif %}
+
+    </form>
+
+</div>
+
+{% endif %}
+                        {% if session.status == "Active" %}
+
+                            <a href="/stop-session/{{ session.id }}/">
+
+                                <button class="stop-btn">
+                                    ⏹ Stop Session
+                                </button>
+
+                            </a>
+
+                        {% endif %}
+
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+
+                <h2>
+                    No Focus Sessions Yet
+                </h2>
+
+
+                <p>
+                    Start your first focus session and stay distraction-free.
+                </p>
+
+
+                <a href="/focus/" class="start-btn">
+                    ▶ Start Focus Session
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+</html>

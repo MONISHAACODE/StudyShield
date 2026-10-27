@@ -1,0 +1,436 @@
+/* =========================
+           STUDY SHIELD THEME
+        ========================= */
+
+        :root {
+            --bg: #0F0B14;
+            --card: #17111F;
+
+            --pink: #EC4899;
+            --purple: #A855F7;
+
+            --gradient: linear-gradient(
+                135deg,
+                #EC4899,
+                #A855F7
+            );
+
+            --white: #FFFFFF;
+            --muted: #A1A1AA;
+            --border: #30203A;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.08),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--white);
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+
+            max-width: 850px;
+
+            margin: auto;
+
+            padding: 50px 0;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .header .icon {
+            font-size: 45px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .header h1 {
+            font-size: 32px;
+
+            background: var(--gradient);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .header p {
+            color: var(--muted);
+
+            margin-top: 10px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           PLANNER CARD
+        ========================= */
+
+        .planner-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .planner-card h2 {
+            margin-bottom: 8px;
+
+            color: var(--white);
+
+            font-size: 21px;
+        }
+
+
+        .description {
+            color: var(--muted);
+
+            margin-bottom: 25px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           SUBJECT ROW
+        ========================= */
+
+        .subject-row {
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .subject-row input {
+            flex: 1;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background: #120D18;
+
+            color: var(--white);
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.25s ease;
+        }
+
+
+        .subject-row input::placeholder {
+            color: #746B82;
+        }
+
+
+        .subject-row input:focus {
+            border-color: var(--pink);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(236, 72, 153, 0.10);
+        }
+
+
+        /* =========================
+           REMOVE BUTTON
+        ========================= */
+
+        .remove-btn {
+            width: 45px;
+
+            padding: 0;
+
+            background:
+                rgba(236, 72, 153, 0.08);
+
+            color: var(--pink);
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            transition: 0.25s ease;
+        }
+
+
+        .remove-btn:hover {
+            border-color: var(--pink);
+
+            background:
+                rgba(236, 72, 153, 0.14);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           ADD BUTTON
+        ========================= */
+
+        .add-btn {
+            margin-top: 8px;
+
+            background: transparent;
+
+            border: 1px dashed var(--purple);
+
+            color: var(--purple);
+
+            transition: 0.25s ease;
+        }
+
+
+        .add-btn:hover {
+            border-color: var(--pink);
+
+            color: var(--pink);
+
+            background:
+                rgba(236, 72, 153, 0.05);
+        }
+
+
+        /* =========================
+           CONTINUE BUTTON
+        ========================= */
+
+        .continue-btn {
+            margin-top: 25px;
+
+            background: var(--gradient);
+
+            color: #FFFFFF;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 0 18px
+                rgba(236, 72, 153, 0.15);
+        }
+
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition: 0.25s ease;
+        }
+
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           LIGHT MODE
+        ========================= */
+
+        html.light-theme body {
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(236, 72, 153, 0.05),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.05),
+                    transparent 30%
+                ),
+                #F8F7FC;
+
+            color: #18121F;
+        }
+
+
+        html.light-theme .planner-card {
+            background: #FFFFFF;
+
+            border-color: #E5DCEB;
+
+            box-shadow:
+                0 10px 30px
+                rgba(168, 85, 247, 0.08);
+        }
+
+
+        html.light-theme .planner-card h2 {
+            color: #18121F;
+        }
+
+
+        html.light-theme .description {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .header p {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .subject-row input {
+            background: #FAF8FC;
+
+            color: #18121F;
+
+            border-color: #E5DCEB;
+        }
+
+
+        html.light-theme .subject-row input::placeholder {
+            color: #94A3B8;
+        }
+
+
+        html.light-theme .subject-row input:focus {
+            border-color: #EC4899;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(236, 72, 153, 0.08);
+        }
+
+
+        html.light-theme .remove-btn {
+            background:
+                rgba(236, 72, 153, 0.05);
+
+            color: #EC4899;
+
+            border-color: #E5DCEB;
+        }
+
+
+        html.light-theme .remove-btn:hover {
+            background:
+                rgba(236, 72, 153, 0.08);
+
+            border-color: #EC4899;
+        }
+
+
+        html.light-theme .add-btn {
+            color: #A855F7;
+
+            border-color: #A855F7;
+        }
+
+
+        html.light-theme .add-btn:hover {
+            color: #EC4899;
+
+            border-color: #EC4899;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 30px 0;
+            }
+
+
+            .planner-card {
+                padding: 22px;
+            }
+
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+
+            .subject-row {
+                gap: 8px;
+            }
+
+
+            .subject-row input {
+                min-width: 0;
+            }
+
+        }
+    

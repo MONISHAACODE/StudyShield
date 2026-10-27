@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Zone | Study Shield</title>
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/puzzle_zone.css' %}">
+
+
+    <script>
+    (function () {
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        } else {
+            document.documentElement.classList.remove("light-theme");
+        }
+    })();
+</script>
+</head>
+<body>
+
+<div class="puzzle-layout">
+
+    <aside class="sidebar">
+        <a href="{% url 'dashboard' %}" class="brand">
+            <span class="brand-icon">S</span>
+            <span>Study Shield</span>
+        </a>
+
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav class="nav-menu">
+            <a href="{% url 'dashboard' %}" class="nav-link">
+                <span>⌂</span> Dashboard
+            </a>
+            <a href="{% url 'focus' %}" class="nav-link">
+                <span>◷</span> Focus Session
+            </a>
+            <a href="{% url 'sessions' %}" class="nav-link">
+                <span>▤</span> My Sessions
+            </a>
+            
+            <a href="{% url 'challenges' %}" class="nav-link">
+                <span>◇</span> Challenges
+            </a>
+            <a href="{% url 'puzzle_zone' %}" class="nav-link active">
+                <span>▦</span> Puzzle Zone
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="mini-badge">✦ Keep growing!</div>
+            <p>Small steps. Stronger focus.</p>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">STUDY SHIELD / BRAIN TRAINING</p>
+                <h1>Puzzle Zone <span>✳</span></h1>
+            </div>
+
+            <button class="theme-toggle" id="themeToggle"
+                    type="button" aria-label="Toggle light and dark theme">
+                ◐ Theme
+            </button>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-tag">YOUR DAILY BRAIN WORKOUT</span>
+                <h2>Think. Solve.<br><span>Grow.</span></h2>
+                <p>
+                    Challenge your mind, sharpen your thinking and
+                    build better focus — one puzzle at a time.
+                </p>
+                <button class="primary-btn" id="startPlaying" type="button">
+                    Explore puzzles <span>↗</span>
+                </button>
+            </div>
+
+            <div class="hero-art" aria-hidden="true">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="puzzle-piece piece-one">✦</div>
+                <div class="puzzle-piece piece-two">◆</div>
+                <div class="puzzle-piece piece-three">●</div>
+                <div class="brain-icon">🧠</div>
+                <div class="art-caption">TRAIN YOUR MIND</div>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-icon pink-icon">✧</div>
+                <div>
+                    <p>Total XP</p>
+                    <h3 id="totalXp">0 <small>XP</small></h3>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon purple-icon">▦</div>
+                <div>
+                    <p>Games played</p>
+                    <h3 id="gamesPlayed">0</h3>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon gold-icon">◎</div>
+                <div>
+                    <p>Best score</p>
+                    <h3 id="bestScore">0<small>%</small></h3>
+                </div>
+            </article>
+        </section>
+
+        <section class="games-section" id="gamesSection">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PICK YOUR CHALLENGE</p>
+                    <h2>Choose your game</h2>
+                </div>
+                <span class="game-count">04 GAME MODES</span>
+            </div>
+
+            <div class="games-grid">
+
+                <article class="game-card">
+                    <div class="game-art number-art">
+                        <div class="number-grid">
+                            <span>1</span><span>2</span><span>3</span>
+                            <span>4</span><span>5</span><span>6</span>
+                            <span>7</span><span>8</span><span class="empty"></span>
+                        </div>
+                        <span class="art-label">01 / LOGIC</span>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title-row">
+                            <h3>Number Quest</h3>
+                            <span class="game-symbol">↗</span>
+                        </div>
+                        <p>Arrange the tiles in the correct order.</p>
+                        <div class="game-footer">
+                            <span class="difficulty">Easy · Medium</span>
+                            <button class="play-btn" data-game="number" type="button">
+                                Play game
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art word-art">
+                        <div class="letter-blocks">
+                            <span>W</span><span>O</span><span>R</span><span>D</span>
+                        </div>
+                        <p>UNSCRAMBLE IT</p>
+                        <span class="art-label">02 / WORDS</span>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title-row">
+                            <h3>Word Wizard</h3>
+                            <span class="game-symbol">↗</span>
+                        </div>
+                        <p>Find the hidden word from mixed letters.</p>
+                        <div class="game-footer">
+                            <span class="difficulty">Vocabulary</span>
+                            <button class="play-btn" data-game="word" type="button">
+                                Play game
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art logic-art">
+                        <div class="logic-symbol">?</div>
+                        <div class="logic-dots"><span></span><span></span><span></span></div>
+                        <span class="art-label">03 / REASONING</span>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title-row">
+                            <h3>Mind Bender</h3>
+                            <span class="game-symbol">↗</span>
+                        </div>
+                        <p>Crack patterns and tricky brain teasers.</p>
+                        <div class="game-footer">
+                            <span class="difficulty">Brain training</span>
+                            <button class="play-btn" data-game="logic" type="button">
+                                Play game
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-art memory-art">
+                        <div class="memory-grid">
+                            <span>✦</span><span>?</span><span>?</span>
+                            <span>?</span><span>✦</span><span>?</span>
+                        </div>
+                        <span class="art-label">04 / MEMORY</span>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title-row">
+                            <h3>Memory Match</h3>
+                            <span class="game-symbol">↗</span>
+                        </div>
+                        <p>Remember the symbols and match each pair.</p>
+                        <div class="game-footer">
+                            <span class="difficulty">Concentration</span>
+                            <button class="play-btn" data-game="memory" type="button">
+                                Play game
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="milestone-card">
+            <div class="milestone-icon">♛</div>
+            <div class="milestone-content">
+                <h3>Your next milestone</h3>
+                <p>Keep solving to improve your personal best.</p>
+                <div class="progress-track">
+                    <div class="progress-fill" id="milestoneProgress"></div>
+                </div>
+            </div>
+            <span class="milestone-percent" id="milestoneText">0 / 100 XP</span>
+        </section>
+
+        <section class="game-panel" id="gamePanel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">YOUR CHALLENGE</p>
+                    <h2 id="gameTitle">Puzzle</h2>
+                </div>
+                <button type="button" id="closeGame" class="close-btn">
+                    Close ×
+                </button>
+            </div>
+
+            <div class="game-toolbar">
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <span class="timer-label">Time: <strong id="gameTimer">00:00</strong></span>
+            </div>
+
+            <div id="gameBoard" class="game-board"></div>
+            <p id="gameMessage" class="game-message" aria-live="polite">
+                Ready? Start your challenge!
+            </p>
+
+            <div class="panel-actions">
+                <button type="button" class="primary-btn" id="restartGame">
+                    Restart game
+                </button>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="{% static 'js/puzzle_zone.js' %}"></script>
+</body>
+</html>

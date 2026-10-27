@@ -1,0 +1,286 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F0B14">
+
+    <title>Study Shield | Focus Without Distractions</title>
+
+    <script>
+        const savedTheme =
+            localStorage.getItem("studyShieldTheme") || "dark";
+
+        document.documentElement.classList.toggle(
+            "light-theme",
+            savedTheme === "light"
+        );
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+<div class="page-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="/" class="brand">
+            <img src="{% static 'student/studylogo.jpeg' %}"
+                 alt="Study Shield Logo">
+            <span>Study Shield</span>
+        </a>
+
+        <p class="sidebar-heading">YOUR WORKSPACE</p>
+
+        <nav class="sidebar-nav">
+
+            <a href="/" class="nav-link active" aria-current="page">
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+            <a href="/dashboard/" class="nav-link">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/focus/" class="nav-link">
+                <span class="nav-icon">◎</span>
+                <span>Focus Session</span>
+            </a>
+
+            <a href="/sessions/" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>My Sessions</span>
+            </a>
+
+            <a href="/weekly-report/" class="nav-link">
+                <span class="nav-icon">▥</span>
+                <span>Weekly Report</span>
+            </a>
+
+            <a href="/challenges/" class="nav-link">
+                <span class="nav-icon">♜</span>
+                <span>Challenges</span>
+            </a>
+
+
+        </nav>
+
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
+
+            <p class="sidebar-motivation">
+                <span>🌱</span>
+                Small steps grow into big achievements.
+            </p>
+
+            <div class="theme-control">
+                <span class="theme-symbol" id="themeIcon">🌙</span>
+                <span class="theme-label" id="themeText">Dark Mode</span>
+
+                <label class="bloom-switch"
+                       aria-label="Toggle light and dark mode">
+
+                    <input type="checkbox" id="themeToggle" checked>
+
+                    <span class="bloom-switch__track">
+                        <span class="bloom-switch__star bloom-switch__star--1"></span>
+                        <span class="bloom-switch__star bloom-switch__star--2"></span>
+                        <span class="bloom-switch__star bloom-switch__star--3"></span>
+
+                        <span class="bloom-switch__thumb">
+                            <span class="switch-sun">☀</span>
+                            <span class="switch-moon">☾</span>
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- WELCOME HEADER -->
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">WELCOME TO YOUR WORKSPACE</p>
+
+                <h2>Hi there! <span>🌷</span></h2>
+
+                <p class="ready-status">
+                    <span class="status-dot"></span>
+                    Ready to focus
+                </p>
+            </div>
+        </header>
+
+        <!-- HERO BANNER -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-label">
+                    YOUR PERSONAL STUDY COMPANION
+                </p>
+
+                <h1>
+                    Focus Without<br>
+                    <span>Distractions.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Stay focused. Stay productive.<br>
+                    Let Study Shield handle the distractions.
+                </p>
+
+                <a href="/focus/" class="button">
+                    <span class="play-icon">▶</span>
+                    <span>Start Focus Session</span>
+                    <span class="button-arrow">→</span>
+                    <span class="button-glow"></span>
+                </a>
+
+            </div>
+
+            <!-- DECORATIVE STUDY ILLUSTRATION -->
+            <div class="hero-visual" aria-hidden="true">
+
+                <div class="visual-glow"></div>
+                <div class="visual-orbit orbit-a"></div>
+                <div class="visual-orbit orbit-b"></div>
+
+                <div class="study-illustration">
+
+                    <!-- WINDOW -->
+                    <div class="illustration-window">
+                        <div class="window-light"></div>
+                        <div class="window-city"></div>
+                    </div>
+
+                    <!-- PLANT -->
+                    <div class="illustration-plant">
+                        <span class="leaf leaf-one"></span>
+                        <span class="leaf leaf-two"></span>
+                        <span class="leaf leaf-three"></span>
+                        <span class="plant-stem"></span>
+                        <span class="plant-pot"></span>
+                    </div>
+
+                    <!-- BOOKS -->
+                    <div class="book book-back"></div>
+                    <div class="book book-front"></div>
+
+                    <!-- LAPTOP -->
+                    <div class="laptop">
+                        <div class="laptop-screen">
+                            <span>Better</span>
+                            <span>Focus</span>
+                            <span>Bigger</span>
+                            <span>Dreams ♡</span>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
+
+                    <!-- FLOATING DECORATIONS -->
+                    <div class="floating-badge badge-target">🎯</div>
+                    <div class="floating-badge badge-sparkle">✦</div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FEATURE SECTION -->
+        <section class="features-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STAY ON TRACK</p>
+                    <h2>Your Focus Toolkit</h2>
+                </div>
+
+                <span class="section-note">
+                    Small steps. Big growth.
+                </span>
+            </div>
+
+            <div class="cards">
+
+                <!-- FOCUS CARD -->
+                <a href="/focus/" class="card focus-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Focus</h3>
+                    <p>Set your study time and stay focused.</p>
+                    <span class="card-arrow">→</span>
+                </a>
+
+                <!-- BLOCK CARD -->
+                <a href="/focus/" class="card block-card">
+                    <div class="card-icon">🚫</div>
+                    <h3>Block</h3>
+                    <p>Block distracting websites during your session.</p>
+                    <span class="card-arrow">→</span>
+                </a>
+
+                <!-- TRACK CARD -->
+                <a href="/dashboard/" class="card track-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Track</h3>
+                    <p>Track your focus sessions and progress.</p>
+                    <span class="card-arrow">→</span>
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="home-footer">
+            <span class="footer-leaf">🌱</span>
+            <span>Study Shield</span>
+            <span class="footer-divider">·</span>
+            <span>Every focused minute helps you grow.</span>
+        </footer>
+
+    </main>
+</div>
+
+<!-- THEME TOGGLE -->
+<script>
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.getElementById("themeText");
+
+    function applyTheme(theme) {
+        const isLight = theme === "light";
+
+        document.documentElement.classList.toggle(
+            "light-theme",
+            isLight
+        );
+
+        themeToggle.checked = !isLight;
+
+        themeIcon.textContent = isLight ? "☀️" : "🌙";
+        themeText.textContent = isLight ? "Light Mode" : "Dark Mode";
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener("change", function () {
+        const theme = this.checked ? "dark" : "light";
+
+        localStorage.setItem("studyShieldTheme", theme);
+        applyTheme(theme);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Shield - Login</title>
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="brand">
+            <h1>Study <span>Shield</span></h1>
+            <p>Smart Student Focus &amp; Productivity System</p>
+        </div>
+
+        <h2 class="form-title">Welcome back</h2>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="error">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label for="username">Username</label>
+                <div class="input-box">
+                    <span class="input-icon" aria-hidden="true">👤</span>
+                    <input
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-box">
+                    <span class="input-icon" aria-hidden="true">🔒</span>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="register-link">
+            Don't have an account?
+            <a href="/register/">Create Account</a>
+        </div>
+
+        <div class="security-note">
+            🔐 Your study data stays protected
+        </div>
+    </div>
+</body>
+</html>

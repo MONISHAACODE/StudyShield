@@ -1,0 +1,386 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Focus Report | Study Shield</title>
+
+    <script>
+        if (localStorage.getItem("studyShieldTheme") === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+
+    <link rel="stylesheet"
+      href="{% static 'css/weekly_focus_report.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-seedling"></i></div>
+            <div>
+                <h2>Study <span>Shield</span></h2>
+                <small>Focus · Learn · Grow</small>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="{% url 'dashboard' %}">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </a>
+            <a href="{% url 'focus' %}">
+                <i class="fa-solid fa-stopwatch"></i> Focus Session
+            </a>
+            <a href="{% url 'study_planner' %}">
+                <i class="fa-regular fa-calendar"></i> Study Plan
+            </a>
+            <a class="active" href="{% url 'weekly_focus_report' %}">
+                <i class="fa-solid fa-chart-column"></i> Weekly Focus Report
+            </a>
+           
+        </nav>
+
+        <div class="sidebar-note">
+            <i class="fa-solid fa-seedling"></i>
+            <p>Small steps every day lead to big results!</p>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button class="theme-button" id="themeToggle" type="button">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                Theme
+            </button>
+        </header>
+
+        <div class="page">
+
+            <section class="heading">
+                <div class="heading-left">
+                    <div class="heading-icon">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+                    <div>
+                        <h1>Weekly <span class="gradient-text">Focus Report</span></h1>
+                        <p class="subtitle">Your progress, your growth. Keep going!</p>
+                    </div>
+                </div>
+
+                <div class="date-label">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    {{ start_date|date:"d M Y" }} –
+                    {{ end_date|date:"d M Y" }}
+                </div>
+            </section>
+
+            <section class="stats">
+                <div class="card stat-card">
+                    <div class="stat-icon pink">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <p class="stat-label">Total Focus Time</p>
+                    <h2>{{ total_focus_minutes }} <small>min</small></h2>
+                    <p class="stat-foot">Completed focus sessions</p>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <p class="stat-label">Average Focus Score</p>
+                    <h2>{{ average_focus_score }}%</h2>
+                    <p class="stat-foot">Your weekly focus score</p>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-icon pink">
+                        <i class="fa-regular fa-circle-check"></i>
+                    </div>
+                    <p class="stat-label">Completed Sessions</p>
+                    <h2>{{ total_sessions }}</h2>
+                    <p class="stat-foot">Sessions this week</p>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <p class="stat-label">Total Distractions</p>
+                    <h2>{{ total_distractions }}</h2>
+                    <p class="stat-foot">Recorded distractions</p>
+                </div>
+            </section>
+
+            <section class="chart-grid">
+                <div class="card chart-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <div>
+                            <h3>Daily Focus Minutes</h3>
+                            <p>Focus time over the last 7 days</p>
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <canvas id="focusChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <div>
+                            <h3>Focus vs Distractions</h3>
+                            <p>Your weekly focus balance</p>
+                        </div>
+                    </div>
+
+                    <div class="donut-layout">
+                        <div class="donut-area">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                        <div class="legend">
+                            <p><span class="dot pink-dot"></span> Focus time
+                                <strong>{{ total_focus_minutes }} min</strong>
+                            </p>
+                            <p><span class="dot purple-dot"></span> Distractions
+                                <strong>{{ total_distractions }}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bottom-grid">
+                <div class="card chart-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <div>
+                            <h3>Focus Score Trend</h3>
+                            <p>Daily average focus score</p>
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-star"></i>
+                        <div>
+                            <h3>Session Rating</h3>
+                            <p>Average completed-session rating</p>
+                        </div>
+                    </div>
+
+                    <div class="rating-number">
+                        {{ average_rating }} <small>/ 5</small>
+                    </div>
+
+                    <div class="best-day">
+                        <i class="fa-solid fa-trophy"></i>
+                        <h3>Best Focus Day</h3>
+                        {% if best_day and best_day != "No data" %}
+                            <p>{{ best_day }}</p>
+                        {% else %}
+                            <p>Complete a session to see your best day.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card insight-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <div><h3>Weekly Insight</h3></div>
+                    </div>
+
+                    {% if total_sessions %}
+                        <p>You completed {{ total_sessions }} focus sessions this week.</p>
+                        <p>Your average focus score is {{ average_focus_score }}%.</p>
+                        <p>Keep setting small goals and celebrate your progress!</p>
+                    {% else %}
+                        <p>Your focus journey starts here. Complete your first focus session to unlock your weekly report.</p>
+                    {% endif %}
+
+                    <strong class="encouragement">You've got this! ♡</strong>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <span><i class="fa-solid fa-heart"></i>
+                    Keep your focus strong!</span>
+                <span>Study Shield · Your Focus Companion</span>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+{{ chart_labels|json_script:"chart-labels" }}
+{{ chart_focus_minutes|json_script:"chart-focus-minutes" }}
+{{ chart_focus_scores|json_script:"chart-focus-scores" }}
+{{ total_focus_minutes|default:0|json_script:"total-focus-minutes" }}
+{{ total_distractions|default:0|json_script:"total-distractions" }}
+
+<script>
+document.getElementById("themeToggle").addEventListener("click", function () {
+    const isLight = document.documentElement.classList.toggle("light-theme");
+    localStorage.setItem("studyShieldTheme", isLight ? "light" : "dark");
+});
+
+const labels = JSON.parse(
+    document.getElementById("chart-labels").textContent
+);
+const focusMinutes = JSON.parse(
+    document.getElementById("chart-focus-minutes").textContent
+);
+const focusScores = JSON.parse(
+    document.getElementById("chart-focus-scores").textContent
+);
+
+function getColors() {
+    const light = document.documentElement.classList.contains("light-theme");
+    return {
+        text: light ? "#786681" : "#B9A8C9",
+        grid: light ? "#E8D9EF" : "#30203A",
+        card: light ? "#FFFFFF" : "#17111F"
+    };
+}
+
+Chart.defaults.font.family = "'Segoe UI', sans-serif";
+
+function baseOptions() {
+    const c = getColors();
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                ticks: { color: c.text },
+                grid: { display: false }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: { color: c.text },
+                grid: { color: c.grid }
+            }
+        }
+    };
+}
+
+const focusChart = new Chart(document.getElementById("focusChart"), {
+    type: "bar",
+    data: {
+        labels,
+        datasets: [{
+            label: "Focus minutes",
+            data: focusMinutes,
+            backgroundColor: ["#EC4899", "#A855F7"],
+            borderRadius: 7,
+            maxBarThickness: 42
+        }]
+    },
+    options: baseOptions()
+});
+
+const scoreChart = new Chart(document.getElementById("scoreChart"), {
+    type: "line",
+    data: {
+        labels,
+        datasets: [{
+            label: "Focus score",
+            data: focusScores,
+            borderColor: "#EC4899",
+            backgroundColor: "rgba(168,85,247,0.20)",
+            pointBackgroundColor: "#EC4899",
+            pointRadius: 4,
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        ...baseOptions(),
+        scales: {
+            ...baseOptions().scales,
+            y: {
+                ...baseOptions().scales.y,
+                min: 0,
+                max: 100,
+                ticks: {
+                    color: getColors().text,
+                    callback: value => value + "%"
+                }
+            }
+        }
+    }
+});
+
+
+const donutChart = new Chart(document.getElementById("donutChart"), {
+    type: "doughnut",
+
+    data: {
+        labels: ["Focus Time", "Distractions"],
+
+        datasets: [{
+            data: [
+                Number(JSON.parse(
+                    document.getElementById("total-focus-minutes").textContent
+                )),
+                Number(JSON.parse(
+                    document.getElementById("total-distractions").textContent
+                ))
+            ],
+
+            backgroundColor: ["#EC4899", "#A855F7"],
+            borderColor: getColors().card,
+            borderWidth: 4,
+            hoverOffset: 7
+        }]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "72%",
+
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
+
+document.getElementById("themeToggle").addEventListener("click", function () {
+    const c = getColors();
+    [focusChart, scoreChart].forEach(chart => {
+        chart.options.scales.x.ticks.color = c.text;
+        chart.options.scales.y.ticks.color = c.text;
+        chart.options.scales.y.grid.color = c.grid;
+        chart.update();
+    });
+
+    donutChart.data.datasets[0].borderColor = c.card;
+    donutChart.update();
+});
+</script>
+
+
+
+</body>
+</html>

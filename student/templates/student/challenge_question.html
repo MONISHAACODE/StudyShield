@@ -1,0 +1,713 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Shield | Interview Challenge</title>
+
+
+    <script>
+    const savedTheme = localStorage.getItem("studyShieldTheme");
+
+    if (savedTheme === "light") {
+        document.documentElement.classList.add("light-theme");
+    }
+</script>
+
+
+<link rel="stylesheet" href="{% static 'css/challenge_question.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            
+
+            Study <span>Shield</span>
+
+        </div>
+
+
+        <a href="/challenges/" class="back-btn">
+            ← Challenges
+        </a>
+
+    </nav>
+
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="challenge-header">
+
+            <div class="badge">
+                Interview Challenge
+            </div>
+
+            <h1>
+                Python <span>Challenge</span>
+            </h1>
+
+            <p>
+                Test your knowledge with real interview-style questions.
+            </p>
+
+        </div>
+
+
+
+        <!-- QUESTION CARD -->
+
+        <div class="question-card" id="quizBox">
+
+
+            <div class="top-bar">
+
+                <div id="questionNumber">
+                    Question 1 of 5
+                </div>
+
+                <div class="timer" id="timer">
+                    ⏱ 30s
+                </div>
+
+            </div>
+
+
+            <div class="progress-container">
+
+                <div class="progress" id="progress"></div>
+
+            </div>
+
+
+            <div class="question" id="question">
+                What is the difference between a list and a tuple in Python?
+            </div>
+
+
+            <div class="options" id="options">
+
+                <div class="option" onclick="selectOption(this, 0)">
+                    A. List is immutable and tuple is mutable
+                </div>
+
+                <div class="option" onclick="selectOption(this, 1)">
+                    B. List is mutable and tuple is immutable
+                </div>
+
+                <div class="option" onclick="selectOption(this, 2)">
+                    C. Both are immutable
+                </div>
+
+                <div class="option" onclick="selectOption(this, 3)">
+                    D. Both are mutable
+                </div>
+
+            </div>
+
+
+            <button class="next-btn" onclick="nextQuestion()">
+                Next Question →
+            </button>
+
+
+            <!-- RESULT -->
+
+            <div class="result" id="result">
+
+                <div class="result-icon">
+                    🏆
+                </div>
+
+                <h2>
+                    Challenge Completed!
+                </h2>
+
+                <div class="score" id="score">
+                    0 / 5
+                </div>
+
+                <p>
+                    Keep practicing to improve your interview skills.
+                </p>
+
+                <button class="retry-btn" onclick="location.reload()">
+                    Try Again
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </main>
+<script>
+    const questionBank = {
+
+        aptitude: [
+            {
+                question: "If a number is increased by 20% and then decreased by 20%, what is the overall change?",
+                options: ["No change", "4% decrease", "4% increase", "2% decrease"],
+                answer: 1
+            },
+            {
+                question: "A train travels 120 km in 2 hours. What is its average speed?",
+                options: ["40 km/h", "50 km/h", "60 km/h", "80 km/h"],
+                answer: 2
+            },
+            {
+                question: "What is 25% of 240?",
+                options: ["40", "50", "60", "80"],
+                answer: 2
+            },
+            {
+                question: "If the ratio of A:B is 2:3 and A is 20, what is B?",
+                options: ["25", "30", "35", "40"],
+                answer: 1
+            },
+            {
+                question: "A product costs ₹800 and is sold for ₹920. What is the profit percentage?",
+                options: ["10%", "12%", "15%", "20%"],
+                answer: 2
+            }
+        ],
+
+        logical: [
+            {
+                question: "Find the next number: 2, 4, 8, 16, ?",
+                options: ["20", "24", "32", "36"],
+                answer: 2
+            },
+            {
+                question: "If all cats are animals and some animals are black, which statement is definitely true?",
+                options: [
+                    "All cats are black",
+                    "Some cats are black",
+                    "All cats are animals",
+                    "No cats are black"
+                ],
+                answer: 2
+            },
+            {
+                question: "Find the odd one out.",
+                options: ["Apple", "Mango", "Carrot", "Banana"],
+                answer: 2
+            },
+            {
+                question: "If MONDAY is coded as NPOEBZ, how is TUESDAY coded?",
+                options: ["UVFTEBZ", "UVFTEAZ", "TVFTEBZ", "UVGTEBZ"],
+                answer: 0
+            },
+            {
+                question: "A is taller than B. B is taller than C. Who is the shortest?",
+                options: ["A", "B", "C", "Cannot determine"],
+                answer: 2
+            }
+        ],
+
+        
+        c: [
+    {
+        question: "What is a pointer in C?",
+        options: [
+            "A variable that stores a memory address",
+            "A variable that stores only integers",
+            "A function used for input",
+            "A keyword used to create arrays"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "What is the output of: printf(\"%d\", 10 + 20);?",
+        options: [
+            "1020",
+            "30",
+            "10 + 20",
+            "Compilation error"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which storage class makes a local variable retain its value between function calls?",
+        options: [
+            "auto",
+            "register",
+            "static",
+            "extern"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "What is the purpose of malloc() in C?",
+        options: [
+            "To free memory",
+            "To allocate memory dynamically",
+            "To copy a string",
+            "To declare a pointer"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which function is used to compare two strings in C?",
+        options: [
+            "strcpy()",
+            "strlen()",
+            "strcmp()",
+            "strcat()"
+        ],
+        answer: 2
+    }
+],
+
+python: [
+
+    {
+        question: "What is the difference between a list and a tuple in Python?",
+        options: [
+            "List is immutable and tuple is mutable",
+            "List is mutable and tuple is immutable",
+            "Both are immutable",
+            "Both are mutable"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which keyword is used to define a function in Python?",
+        options: [
+            "function",
+            "define",
+            "def",
+            "fun"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "Which of the following is used to store multiple values in a single variable?",
+        options: [
+            "List",
+            "Integer",
+            "Boolean",
+            "String"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "What is the output of print(2 + 3)?",
+        options: [
+            "23",
+            "5",
+            "2 + 3",
+            "Error"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which symbol is used for comments in Python?",
+        options: [
+            "//",
+            "/* */",
+            "#",
+            "--"
+        ],
+        answer: 2
+    }
+
+],
+
+java: [
+    {
+        question: "Which OOP concept allows a class to acquire properties and methods from another class?",
+        options: [
+            "Encapsulation",
+            "Inheritance",
+            "Polymorphism",
+            "Abstraction"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "What is method overloading in Java?",
+        options: [
+            "Same method name with different parameters",
+            "Same method name with same parameters",
+            "Using multiple classes",
+            "Hiding a method"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which keyword is used to create an object in Java?",
+        options: [
+            "class",
+            "object",
+            "new",
+            "create"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "Which keyword is used when a class inherits another class?",
+        options: [
+            "implements",
+            "extends",
+            "inherits",
+            "super"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which OOP concept hides internal implementation details and shows only essential information?",
+        options: [
+            "Inheritance",
+            "Polymorphism",
+            "Abstraction",
+            "Overloading"
+        ],
+        answer: 2
+    }
+],
+
+ai: [
+    {
+        question: "What is the main goal of Artificial Intelligence?",
+        options: [
+            "To replace all computer programs",
+            "To enable machines to perform tasks that normally require human intelligence",
+            "To store large amounts of data",
+            "To create websites"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which of the following is a common application of AI?",
+        options: [
+            "Speech recognition",
+            "HTML styling",
+            "File compression",
+            "Keyboard input"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "What is Natural Language Processing (NLP)?",
+        options: [
+            "Processing images",
+            "Understanding and processing human language",
+            "Managing computer hardware",
+            "Creating databases"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which field of AI focuses on understanding images and videos?",
+        options: [
+            "Natural Language Processing",
+            "Computer Vision",
+            "Data Mining",
+            "Cyber Security"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "What are neural networks inspired by?",
+        options: [
+            "Computer memory",
+            "The human brain",
+            "Internet networks",
+            "Database systems"
+        ],
+        answer: 1
+    }
+],
+
+ml: [
+    {
+        question: "What is Machine Learning?",
+        options: [
+            "A method where computers learn patterns from data",
+            "A programming language",
+            "A database system",
+            "A hardware component"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which type of learning uses labelled data?",
+        options: [
+            "Unsupervised Learning",
+            "Supervised Learning",
+            "Reinforcement Learning",
+            "Random Learning"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which is an example of a classification problem?",
+        options: [
+            "Predicting house price",
+            "Predicting whether an email is spam",
+            "Calculating temperature",
+            "Finding average marks"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "What is overfitting in Machine Learning?",
+        options: [
+            "Model performs well on training data but poorly on new data",
+            "Model has no training data",
+            "Model trains very quickly",
+            "Model has no features"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which algorithm can be used for classification?",
+        options: [
+            "Logistic Regression",
+            "Bubble Sort",
+            "Binary Search",
+            "Linear Search"
+        ],
+        answer: 0
+    }
+]
+};
+
+/* GET CATEGORY FROM URL */
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const category = urlParams.get("category") || "python";
+
+    const questions = questionBank[category] || questionBank.python;
+
+
+    /* CATEGORY NAME */
+
+    const categoryNames = {
+        aptitude: "Aptitude",
+        logical: "Logical Reasoning",
+        c: "C Programming",
+        python: "Python",
+        java: "Java",
+        ai: "Artificial Intelligence",
+        ml: "Machine Learning"
+    };
+
+
+    document.querySelector(".challenge-header h1").innerHTML =
+        categoryNames[category] + ' <span>Challenge</span>';
+
+
+    /* QUIZ VARIABLES */
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswer = null;
+    let timeLeft = 30;
+    let timerInterval;
+
+
+    /* TIMER */
+
+    function startTimer() {
+
+        clearInterval(timerInterval);
+
+        timeLeft = 30;
+
+        document.getElementById("timer").innerHTML =
+            "⏱ " + timeLeft + "s";
+
+        timerInterval = setInterval(function () {
+
+            timeLeft--;
+
+            document.getElementById("timer").innerHTML =
+                "⏱ " + timeLeft + "s";
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextQuestion();
+            }
+
+        }, 1000);
+    }
+
+
+    /* SELECT OPTION */
+
+    function selectOption(element, index) {
+
+        document.querySelectorAll(".option").forEach(function(option) {
+            option.classList.remove("selected");
+        });
+
+        element.classList.add("selected");
+
+        selectedAnswer = index;
+    }
+
+
+    /* LOAD QUESTION */
+
+    function loadQuestion() {
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("questionNumber").innerHTML =
+            "Question " +
+            (currentQuestion + 1) +
+            " of " +
+            questions.length;
+
+        document.getElementById("question").innerHTML =
+            q.question;
+
+        const optionsBox =
+            document.getElementById("options");
+
+        optionsBox.innerHTML = "";
+
+        q.options.forEach(function(option, index) {
+
+            const div = document.createElement("div");
+
+            div.className = "option";
+
+            div.innerHTML =
+                String.fromCharCode(65 + index) +
+                ". " +
+                option;
+
+            div.onclick = function() {
+                selectOption(div, index);
+            };
+
+            optionsBox.appendChild(div);
+        });
+
+
+        const progress =
+            ((currentQuestion + 1) / questions.length) * 100;
+
+        document.getElementById("progress").style.width =
+            progress + "%";
+
+        selectedAnswer = null;
+
+        startTimer();
+    }
+
+
+    /* NEXT */
+
+    function nextQuestion() {
+
+        clearInterval(timerInterval);
+
+        if (
+            selectedAnswer !== null &&
+            selectedAnswer === questions[currentQuestion].answer
+        ) {
+            score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion >= questions.length) {
+            showResult();
+            return;
+        }
+
+        loadQuestion();
+    }
+
+
+    function showResult() {
+
+    document.getElementById("questionNumber").style.display = "none";
+
+    document.getElementById("timer").style.display = "none";
+
+    document.querySelector(".progress-container").style.display = "none";
+
+    document.getElementById("question").style.display = "none";
+
+    document.getElementById("options").style.display = "none";
+
+    document.querySelector(".next-btn").style.display = "none";
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("score").innerHTML =
+        score + " / " + questions.length;
+
+
+    fetch("/save-challenge-result/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body:
+            "category=" + encodeURIComponent(category) +
+            "&score=" + encodeURIComponent(score) +
+            "&total_questions=" + encodeURIComponent(questions.length) +
+            "&correct_answers=" + encodeURIComponent(score)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+}
+
+    /* START */
+
+    loadQuestion();
+
+</script>
+
+
+    
+</body>
+</html>

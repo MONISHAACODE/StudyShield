@@ -1,0 +1,439 @@
+/* =========================
+           STUDY SHIELD THEME
+        ========================= */
+
+        :root {
+            --bg: #0F0B14;
+            --card: #17111F;
+
+            --pink: #EC4899;
+            --purple: #A855F7;
+
+            --gradient: linear-gradient(
+                135deg,
+                #EC4899,
+                #A855F7
+            );
+
+            --white: #FFFFFF;
+            --muted: #A1A1AA;
+            --border: #30203A;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.08),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--white);
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 100%;
+
+            max-width: 600px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.30);
+        }
+
+
+        /* =========================
+           BADGE
+        ========================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(236, 72, 153, 0.08);
+
+            border:
+                1px solid
+                rgba(236, 72, 153, 0.22);
+
+            color: var(--pink);
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        h1 {
+            font-size: 30px;
+
+            margin-bottom: 12px;
+
+            color: var(--white);
+        }
+
+
+        .subtitle {
+            color: var(--muted);
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           SUBJECTS
+        ========================= */
+
+        .subjects {
+            margin-bottom: 25px;
+        }
+
+
+        .subject {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 12px 15px;
+
+            margin-bottom: 8px;
+
+            background: #120D18;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            color: var(--white);
+
+            transition: 0.25s ease;
+        }
+
+
+        .subject:hover {
+            border-color:
+                rgba(236, 72, 153, 0.30);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(236, 72, 153, 0.04),
+                    rgba(168, 85, 247, 0.04)
+                );
+        }
+
+
+        .interest {
+            color: var(--purple);
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           LABEL
+        ========================= */
+
+        label {
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-size: 15px;
+
+            color: var(--white);
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        input {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background: #120D18;
+
+            color: var(--white);
+
+            font-size: 16px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+
+        input::placeholder {
+            color: #746B82;
+        }
+
+
+        input:focus {
+            border-color: var(--pink);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(236, 72, 153, 0.10);
+        }
+
+
+        /* =========================
+           HINT
+        ========================= */
+
+        .hint {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-top: 8px;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        button {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--gradient);
+
+            color: #FFFFFF;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+
+            box-shadow:
+                0 0 18px
+                rgba(236, 72, 153, 0.15);
+        }
+
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(236, 72, 153, 0.20);
+        }
+
+
+        /* =========================
+           LIGHT MODE
+        ========================= */
+
+        html.light-theme body {
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(236, 72, 153, 0.05),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.05),
+                    transparent 30%
+                ),
+                #F8F7FC;
+
+            color: #18121F;
+        }
+
+
+        html.light-theme .container {
+            background: #FFFFFF;
+
+            border-color: #E5DCEB;
+
+            box-shadow:
+                0 10px 30px
+                rgba(168, 85, 247, 0.08);
+        }
+
+
+        html.light-theme h1 {
+            color: #18121F;
+        }
+
+
+        html.light-theme .subtitle {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .badge {
+            background:
+                rgba(236, 72, 153, 0.06);
+
+            border-color:
+                rgba(236, 72, 153, 0.20);
+
+            color: #EC4899;
+        }
+
+
+        html.light-theme .subject {
+            background: #FAF8FC;
+
+            border-color: #E5DCEB;
+
+            color: #18121F;
+        }
+
+
+        html.light-theme .subject:hover {
+            border-color:
+                rgba(236, 72, 153, 0.30);
+        }
+
+
+        html.light-theme .interest {
+            color: #A855F7;
+        }
+
+
+        html.light-theme label {
+            color: #18121F;
+        }
+
+
+        html.light-theme input {
+            background: #FAF8FC;
+
+            color: #18121F;
+
+            border-color: #E5DCEB;
+        }
+
+
+        html.light-theme input::placeholder {
+            color: #94A3B8;
+        }
+
+
+        html.light-theme input:focus {
+            border-color: #EC4899;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(236, 72, 153, 0.08);
+        }
+
+
+        html.light-theme .hint {
+            color: #6B6475;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px;
+            }
+
+
+            .container {
+                padding: 25px 20px;
+            }
+
+
+            h1 {
+                font-size: 27px;
+            }
+
+
+            .subject {
+                gap: 15px;
+            }
+
+        }
+
+    

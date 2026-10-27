@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Shield | Challenges</title>
+    <script>
+    const savedTheme = localStorage.getItem("studyShieldTheme");
+
+    if (savedTheme === "light") {
+        document.documentElement.classList.add("light-theme");
+    }
+</script>
+
+   <link rel="stylesheet" href="{% static 'css/challenges.css' %}"> 
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         NAVBAR
+    ================================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            
+            Study <span>Shield</span>
+
+        </div>
+
+
+        <a href="/" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </nav>
+
+
+
+    <!-- ================================
+         MAIN
+    ================================= -->
+
+    <main class="container">
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div class="mini-title">
+                Focus & Learn
+            </div>
+
+
+            <h1>
+                Daily <span>Challenges</span>
+            </h1>
+
+
+            <p>
+                Take a quick challenge, test your knowledge,
+                and turn your study time into productive learning.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================================
+             CHALLENGE CARDS
+        ================================= -->
+
+        <section class="challenge-grid">
+
+
+            <!-- APTITUDE -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    🧠
+                </div>
+
+
+                <h2>
+                    Aptitude
+                </h2>
+
+
+                <p>
+                    Practice numbers, percentages,
+                    ratios and basic mathematical problems.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                   <button class="start-btn" onclick="startChallenge('aptitude')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOGICAL -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    🔍
+                </div>
+
+
+                <h2>
+                    Logical
+                </h2>
+
+
+                <p>
+                    Improve reasoning, patterns,
+                    puzzles and problem-solving ability.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                    <button class="start-btn" onclick="startChallenge('logical')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- C -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    💻
+                </div>
+
+
+                <h2>
+                    C Programming
+                </h2>
+
+
+                <p>
+                    Practice variables, loops,
+                    functions and basic C concepts.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                   <button class="start-btn" onclick="startChallenge('c')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PYTHON -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    🐍
+                </div>
+
+
+                <h2>
+                    Python
+                </h2>
+
+
+                <p>
+                    Test your knowledge of Python,
+                    lists, loops, functions and basics.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                    <button class="start-btn" onclick="startChallenge('python')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JAVA -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    ☕
+                </div>
+
+
+                <h2>
+                    Java
+                </h2>
+
+
+                <p>
+                    Practice Java basics and
+                    object-oriented programming concepts.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                    <button class="start-btn" onclick="startChallenge('java')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AI -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    🤖
+                </div>
+
+
+                <h2>
+                    Artificial Intelligence
+                </h2>
+
+
+                <p>
+                    Explore simple AI concepts,
+                    applications and intelligent systems.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                   <button class="start-btn" onclick="startChallenge('ai')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ML -->
+
+            <div class="challenge-card">
+
+                <div class="challenge-icon">
+                    📊
+                </div>
+
+
+                <h2>
+                    Machine Learning
+                </h2>
+
+
+                <p>
+                    Learn about datasets, algorithms,
+                    training and prediction concepts.
+                </p>
+
+
+                <div class="card-footer">
+
+                    <div class="level">
+                        Level:
+                        <span>Easy</span>
+                    </div>
+
+
+                    <button class="start-btn" onclick="startChallenge('ml')">
+                        Start
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             INFO BOX
+        ================================= -->
+
+        <section class="info-box">
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    ⚡
+                </div>
+
+                <div class="info-text">
+
+                    <strong>Quick Challenge</strong>
+
+                    <small>
+                        Short questions to keep your mind active
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    🎯
+                </div>
+
+                <div class="info-text">
+
+                    <strong>Build Skills</strong>
+
+                    <small>
+                        Practice something useful every day
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+                    🛡️
+                </div>
+
+                <div class="info-text">
+
+                    <strong>Stay Focused</strong>
+
+                    <small>
+                        Make your study time productive
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer>
+
+        Study Shield •
+        <span>Focus Better. Learn Better.</span>
+
+    </footer>
+
+    <script>
+    function startChallenge(category) {
+        window.location.href =
+            "/challenge-question/?category=" + category;
+    }
+</script>
+
+</body>
+</html>

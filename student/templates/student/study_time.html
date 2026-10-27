@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Time | Study Shield</title>
+
+    <link rel="stylesheet" href="{% static 'css/study_time.css' %}">
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="badge">
+        Step 4 of your Study Plan
+    </div>
+
+
+    <h1>
+        How much time can you study? ⏱️
+    </h1>
+
+
+    <p class="subtitle">
+        Tell us your total available study time for today.
+        Study Shield will automatically divide the time between your subjects.
+    </p>
+
+
+    <div class="subjects">
+
+        {% for item in study_interests %}
+
+        <div class="subject">
+
+            <span>
+                {{ item.subject }}
+            </span>
+
+            <span class="interest">
+                {{ item.interest }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <label for="available_time">
+            Total study time (minutes)
+        </label>
+
+
+        <input
+            type="number"
+            id="available_time"
+            name="available_time"
+            min="30"
+            max="720"
+            placeholder="Example: 180"
+            required
+        >
+
+
+        <p class="hint">
+            Example: 180 minutes = 3 hours
+        </p>
+
+
+        <button type="submit">
+            Create My Study Plan →
+        </button>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

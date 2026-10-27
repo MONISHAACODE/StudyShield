@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interest Check | Study Shield</title>
+
+    <link rel="stylesheet" href="{% static 'css/interest_check.css' %}">
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="badge">
+        Step 3 of your Study Plan
+    </div>
+
+
+    <h1>
+        How interested are you? 📚
+    </h1>
+
+
+    <p class="subtitle">
+        Tell us how interested you are in each subject.
+        We'll use this to create your personalized study schedule.
+    </p>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        {% for subject in subjects %}
+
+
+        <div class="subject-card">
+
+
+            <div class="subject-name">
+                {{ subject }}
+            </div>
+
+
+            <div class="options">
+
+
+                <input
+                    type="radio"
+                    id="high{{ forloop.counter }}"
+                    name="interest_{{ forloop.counter }}"
+                    value="High"
+                    required
+                >
+
+                <label for="high{{ forloop.counter }}">
+                    🔥 High
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="medium{{ forloop.counter }}"
+                    name="interest_{{ forloop.counter }}"
+                    value="Medium"
+                >
+
+                <label for="medium{{ forloop.counter }}">
+                    🙂 Medium
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="low{{ forloop.counter }}"
+                    name="interest_{{ forloop.counter }}"
+                    value="Low"
+                >
+
+                <label for="low{{ forloop.counter }}">
+                    😴 Low
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+
+        <button
+            type="submit"
+            class="continue-btn"
+        >
+            Continue →
+        </button>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

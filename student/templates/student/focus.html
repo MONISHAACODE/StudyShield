@@ -1,0 +1,451 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Session | Study Shield</title>
+
+    <script>
+        try {
+            if (localStorage.getItem("studyShieldTheme") === "light") {
+                document.documentElement.classList.add("light-theme");
+            }
+        } catch (error) {
+            console.warn("Theme preference unavailable.");
+        }
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/focus.css' %}">
+    <link rel="stylesheet" href="{% static 'css/smart_break.css' %}">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="focus-sidebar">
+        <a href="{% url 'home' %}" class="sidebar-brand">
+            <img
+                src="{% static 'student/studylogo.jpeg' %}"
+                alt="Study Shield"
+                class="sidebar-logo"
+            >
+            <span>Study<span class="brand-gradient">Shield</span></span>
+        </a>
+
+        <p class="sidebar-label">WORKSPACE</p>
+
+        <nav class="sidebar-nav">
+            <a href="{% url 'home' %}" class="sidebar-link">
+                <span class="nav-icon">⌂</span> Home
+            </a>
+
+            <a href="{% url 'dashboard' %}" class="sidebar-link">
+                <span class="nav-icon">▦</span> Dashboard
+            </a>
+
+            <a href="{% url 'focus' %}" class="sidebar-link active">
+                <span class="nav-icon">◷</span> Focus Session
+            </a>
+
+            <a href="{% url 'sessions' %}" class="sidebar-link">
+                <span class="nav-icon">▤</span> My Sessions
+            </a>
+
+        
+
+             <a href="{% url 'puzzle_zone' %}" class="sidebar-link">
+                <span class="nav-icon">🧩</span> Puzzle Zone
+            </a>
+
+            <a href="{% url 'challenges' %}" class="sidebar-link">
+                <span class="nav-icon">✧</span> Challenges
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+
+
+            <div class="sidebar-tip">
+                <span class="tip-star">✦</span>
+                <h3>Stay focused!</h3>
+                <p>Small steps every day lead to big achievements.</p>
+            </div>
+
+            <a href="{% url 'logout' %}" class="sidebar-link logout-link">
+                <span class="nav-icon">↪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="main-content">
+
+        <header class="top-header">
+            <div>
+                <p class="eyebrow">YOUR PRODUCTIVITY SPACE</p>
+
+                <h1>
+                    Focus <span class="gradient-text">Session</span>
+                </h1>
+
+                <p class="header-description">
+                    One task at a time. Make every minute count.
+                </p>
+            </div>
+
+          
+        </header>
+
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% endif %}
+
+        <!-- FOCUS FORM -->
+        <section class="focus-card">
+            <div class="section-heading">
+                <div class="heading-icon">✦</div>
+
+                <div>
+                    <h2>Plan your focus</h2>
+                    <p>Set your task and get ready to concentrate.</p>
+                </div>
+            </div>
+
+            <form method="POST" action="/focus/" class="focus-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="subject">What are you studying?</label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="e.g. Python, Django, Aptitude"
+                        value="{{ planned_subject|default:'' }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="focus_time">Focus duration (minutes)</label>
+
+                    <input
+                        type="number"
+                        id="focus_time"
+                        name="focus_time"
+                        placeholder="Enter duration in minutes"
+                        value="{{ planned_time|default:'' }}"
+                        min="1"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="website">Website to block</label>
+
+                    <input
+                        type="text"
+                        id="website"
+                        name="website"
+                        placeholder="e.g. youtube.com"
+                    >
+
+                    <p class="field-hint">
+                        Enter a distracting website you want to avoid
+                        during focus time.
+                    </p>
+                </div>
+
+                <button type="submit" class="start-button">
+                    <span>▶</span> Start Focus Session
+                </button>
+            </form>
+        </section>
+
+        <!-- TIMER -->
+        <section class="timer-card">
+            <div class="timer-heading">
+                <div>
+                    <p class="eyebrow">STAY IN THE ZONE</p>
+                    <h2>Focus Timer</h2>
+                </div>
+
+                <span class="timer-status" id="timerStatus">
+                    <span class="status-dot"></span>
+                    Ready to focus
+                </span>
+            </div>
+
+            <div class="timer-content">
+                <div class="focus-loader" aria-hidden="true">
+                    <div class="hourglass">
+                        <div class="hourglass-top"></div>
+                        <div class="hourglass-bottom"></div>
+                    </div>
+                </div>
+
+                <div id="timer" class="timer-display">00:00</div>
+
+                <p id="timerCaption" class="timer-caption">
+                    Your focus journey starts here
+                </p>
+            </div>
+        </section>
+
+        <footer class="focus-footer">
+            <span>✦</span> Stay consistent. Your progress matters.
+        </footer>
+    </main>
+
+    <!-- SMART BREAK OVERLAY -->
+    <div id="smartBreakOverlay" class="smart-break-overlay" hidden>
+        <div class="smart-break-card">
+            <div class="break-icon">☕</div>
+
+            <p class="eyebrow">YOU EARNED IT</p>
+
+            <h2>
+                Time for a <span class="gradient-text">Smart Break!</span>
+            </h2>
+
+            <p class="break-description">
+                Relax your mind, stretch a little, and get ready
+                for your next session.
+            </p>
+
+            <div id="breakTimer" class="break-timer">05:00</div>
+
+            <div class="break-actions">
+                <button type="button" id="skipBreak" class="secondary-button">
+                    Skip Break
+                </button>
+
+                <button type="button" id="resumeStudy" class="start-button">
+                    Resume Studying →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Django values are passed through HTML data attributes -->
+    <div
+        id="focus-session-data"
+        data-selected-time="{{ selected_time|default:0 }}"
+        data-session-id="{{ session_id|default:'' }}"
+        hidden>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+         
+
+
+            // ========================================
+            // SMART BREAK
+            // ========================================
+
+            const breakOverlay =
+                document.getElementById("smartBreakOverlay");
+
+            const breakTimer =
+                document.getElementById("breakTimer");
+
+            const skipBreak =
+                document.getElementById("skipBreak");
+
+            const resumeStudy =
+                document.getElementById("resumeStudy");
+
+            let breakInterval = null;
+
+            function closeBreakAndResume() {
+                if (breakInterval !== null) {
+                    clearInterval(breakInterval);
+                    breakInterval = null;
+                }
+
+                breakOverlay.hidden = true;
+
+                window.location.href = "/dashboard/";
+            }
+
+            function startBreak() {
+                if (breakInterval !== null) {
+                    clearInterval(breakInterval);
+                }
+
+                breakOverlay.hidden = false;
+
+                let breakSeconds = 5 * 60;
+
+                function renderBreakTime() {
+                    const minutes = Math.floor(breakSeconds / 60);
+                    const remainingSeconds = breakSeconds % 60;
+
+                    breakTimer.textContent =
+                        String(minutes).padStart(2, "0") + ":" +
+                        String(remainingSeconds).padStart(2, "0");
+                }
+
+                renderBreakTime();
+
+                breakInterval = setInterval(function () {
+                    breakSeconds--;
+
+                    renderBreakTime();
+
+                    if (breakSeconds <= 0) {
+                        clearInterval(breakInterval);
+                        breakInterval = null;
+
+                        closeBreakAndResume();
+                    }
+                }, 1000);
+            }
+
+            // Session completion can call this function.
+            window.showSmartBreak = startBreak;
+
+            skipBreak.addEventListener(
+                "click",
+                closeBreakAndResume
+            );
+
+            resumeStudy.addEventListener(
+                "click",
+                closeBreakAndResume
+            );
+
+
+            // ========================================
+            // FOCUS SESSION COUNTDOWN
+            // ========================================
+
+            const sessionData =
+                document.getElementById("focus-session-data");
+
+            const selectedTime =
+                Number(sessionData.dataset.selectedTime);
+
+            const sessionId =
+                sessionData.dataset.sessionId;
+
+            const timer =
+                document.getElementById("timer");
+
+            const timerStatus =
+                document.getElementById("timerStatus");
+
+            const timerCaption =
+                document.getElementById("timerCaption");
+
+            if (Number.isFinite(selectedTime) && selectedTime > 0) {
+
+                let seconds = Math.floor(selectedTime * 60);
+                let sessionCompleted = false;
+
+                timerStatus.innerHTML =
+                    '<span class="status-dot"></span> Focus in progress';
+
+                timerCaption.textContent =
+                    "Stay focused. You've got this!";
+
+                function renderTimer() {
+                    const minutes = Math.floor(seconds / 60);
+                    const remainingSeconds = seconds % 60;
+
+                    timer.textContent =
+                        String(minutes).padStart(2, "0") + ":" +
+                        String(remainingSeconds).padStart(2, "0");
+                }
+
+                renderTimer();
+
+                const countdown = setInterval(function () {
+
+                    seconds--;
+
+                    if (seconds <= 0 && !sessionCompleted) {
+
+                        sessionCompleted = true;
+
+                        clearInterval(countdown);
+
+                        timer.textContent = "00:00";
+
+                        timerStatus.innerHTML =
+                            '<span class="status-dot"></span> Session completed';
+
+                        timerCaption.textContent =
+                            "Amazing work! Time to recharge.";
+
+                        // Do not make a completion request without a session ID.
+                        if (!sessionId) {
+                            console.error(
+                                "Session ID is missing. Check the Django view context."
+                            );
+
+                            alert(
+                                "Timer finished, but the session ID is missing. " +
+                                "Please check your Django view."
+                            );
+
+                            return;
+                        }
+
+                        fetch(
+                            "/complete-session/" +
+                            encodeURIComponent(sessionId) +
+                            "/",
+                            {
+                                method: "GET",
+                                headers: {
+                                    "X-Requested-With": "XMLHttpRequest"
+                                }
+                            }
+                        )
+                        .then(function (response) {
+                            if (!response.ok) {
+                                throw new Error(
+                                    "Could not complete the session."
+                                );
+                            }
+
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log(data.message);
+                            console.log("XP Earned:", data.xp_earned);
+                            console.log("Total XP:", data.total_xp);
+
+                            startBreak();
+                        })
+                        .catch(function (error) {
+                            console.error(
+                                "Session completion error:",
+                                error
+                            );
+
+                            alert(
+                                "Session completion failed. " +
+                                "Please check the Django view and URL."
+                            );
+                        });
+
+                        return;
+                    }
+
+                    renderTimer();
+
+                }, 1000);
+            }
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Study Plan | Study Shield</title>
+
+    <link rel="stylesheet" href="{% static 'css/study_plan.css' %}">
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <div class="badge">
+            Your Personalized Plan
+        </div>
+
+
+        <h1>
+            Today's Study Plan 📚
+        </h1>
+
+
+        <p class="subtitle">
+            Study Shield created this schedule based on your interests
+            and available time.
+        </p>
+
+    </div>
+
+
+    <div class="total-card">
+
+        <p>
+            Total Study Time
+        </p>
+
+        <span>
+            {{ available_time }} minutes
+        </span>
+
+    </div>
+
+
+    {% for item in allocations %}
+
+    <div class="plan-card">
+
+
+        <div class="number">
+            {{ forloop.counter }}
+        </div>
+
+
+        <div class="details">
+
+            <div class="subject">
+                {{ item.subject }}
+            </div>
+
+            <div class="interest">
+                Interest: {{ item.interest }}
+            </div>
+
+        </div>
+
+
+        <div class="time">
+            {{ item.minutes }} min
+        </div>
+
+
+    </div>
+
+    {% endfor %}
+
+
+    <a
+        href="/start-planned-session/"
+        class="start-btn"
+    >
+        Start First Focus Session →
+    </a>
+
+
+</div>
+
+
+</body>
+</html>

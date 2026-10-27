@@ -1,0 +1,466 @@
+/* =========================
+           STUDY SHIELD THEME
+        ========================= */
+
+        :root {
+            --bg: #0F0B14;
+            --card: #17111F;
+
+            --pink: #EC4899;
+            --purple: #A855F7;
+
+            --gradient: linear-gradient(
+                135deg,
+                #EC4899,
+                #A855F7
+            );
+
+            --white: #FFFFFF;
+            --muted: #A1A1AA;
+            --border: #30203A;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.08),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--white);
+
+            padding: 40px 20px;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(236, 72, 153, 0.08);
+
+            border:
+                1px solid
+                rgba(236, 72, 153, 0.22);
+
+            color: var(--pink);
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+        }
+
+
+        h1 {
+            font-size: 32px;
+
+            margin-bottom: 10px;
+
+            color: var(--white);
+        }
+
+
+        .subtitle {
+            color: var(--muted);
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           TOTAL CARD
+        ========================= */
+
+        .total-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.18);
+
+            transition: 0.3s ease;
+        }
+
+
+        .total-card:hover {
+            border-color:
+                rgba(236, 72, 153, 0.35);
+
+            box-shadow:
+                0 12px 30px
+                rgba(236, 72, 153, 0.08);
+        }
+
+
+        .total-card p {
+            color: var(--muted);
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+        }
+
+
+        .total-card span {
+            background: var(--gradient);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            font-size: 28px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           PLAN CARD
+        ========================= */
+
+        .plan-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            margin-bottom: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            transition: 0.3s ease;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .plan-card:hover {
+            border-color:
+                rgba(236, 72, 153, 0.35);
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(168, 85, 247, 0.08);
+        }
+
+
+        /* =========================
+           NUMBER
+        ========================= */
+
+        .number {
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 50%;
+
+            background: var(--gradient);
+
+            color: #FFFFFF;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+
+            flex-shrink: 0;
+
+            box-shadow:
+                0 0 15px
+                rgba(236, 72, 153, 0.15);
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .details {
+            flex: 1;
+        }
+
+
+        .subject {
+            font-size: 19px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+            color: var(--white);
+        }
+
+
+        .interest {
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           TIME
+        ========================= */
+
+        .time {
+            color: var(--pink);
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           START BUTTON
+        ========================= */
+
+        .start-btn {
+            display: block;
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: var(--gradient);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            transition: 0.3s ease;
+
+            box-shadow:
+                0 0 18px
+                rgba(236, 72, 153, 0.15);
+        }
+
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(236, 72, 153, 0.20);
+        }
+
+
+        /* =========================
+           LIGHT MODE
+        ========================= */
+
+        html.light-theme body {
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(236, 72, 153, 0.05),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(168, 85, 247, 0.05),
+                    transparent 30%
+                ),
+                #F8F7FC;
+
+            color: #18121F;
+        }
+
+
+        html.light-theme .header h1 {
+            color: #18121F;
+        }
+
+
+        html.light-theme .subtitle {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .badge {
+            background:
+                rgba(236, 72, 153, 0.06);
+
+            border-color:
+                rgba(236, 72, 153, 0.20);
+
+            color: #EC4899;
+        }
+
+
+        html.light-theme .total-card,
+        html.light-theme .plan-card {
+            background: #FFFFFF;
+
+            border-color: #E5DCEB;
+
+            box-shadow:
+                0 8px 25px
+                rgba(168, 85, 247, 0.07);
+        }
+
+
+        html.light-theme .total-card:hover,
+        html.light-theme .plan-card:hover {
+            border-color:
+                rgba(236, 72, 153, 0.35);
+        }
+
+
+        html.light-theme .total-card p {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .subject {
+            color: #18121F;
+        }
+
+
+        html.light-theme .interest {
+            color: #6B6475;
+        }
+
+
+        html.light-theme .time {
+            color: #EC4899;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+
+            .container {
+                width: 100%;
+            }
+
+
+            h1 {
+                font-size: 27px;
+            }
+
+
+            .plan-card {
+                padding: 16px;
+
+                gap: 12px;
+            }
+
+
+            .number {
+                width: 40px;
+                height: 40px;
+            }
+
+
+            .subject {
+                font-size: 17px;
+            }
+
+
+            .time {
+                font-size: 17px;
+            }
+
+        }
+

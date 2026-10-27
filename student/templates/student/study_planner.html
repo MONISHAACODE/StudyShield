@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Planner | Study Shield</title>
+
+    <link rel="stylesheet" href="{% static 'css/study_planner.css' %}">
+
+    <script>
+        const savedTheme = localStorage.getItem("studyShieldTheme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("light-theme");
+        }
+    </script>
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <div class="icon">
+            📚
+        </div>
+
+
+        <h1>
+            What do you want to study today?
+        </h1>
+
+
+        <p>
+            Add all the subjects you want to study today.
+        </p>
+
+    </div>
+
+
+    <div class="planner-card">
+
+
+        <h2>
+            Today's Subjects
+        </h2>
+
+
+        <p class="description">
+            You can add as many subjects as you need.
+        </p>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div id="subjects-container">
+
+
+                <div class="subject-row">
+
+                    <input
+                        type="text"
+                        name="subjects"
+                        placeholder="Example: C"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="remove-btn"
+                        onclick="removeSubject(this)"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div class="subject-row">
+
+                    <input
+                        type="text"
+                        name="subjects"
+                        placeholder="Example: Java"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="remove-btn"
+                        onclick="removeSubject(this)"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div class="subject-row">
+
+                    <input
+                        type="text"
+                        name="subjects"
+                        placeholder="Example: Python"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="remove-btn"
+                        onclick="removeSubject(this)"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add-btn"
+                onclick="addSubject()"
+            >
+                + Add Another Subject
+            </button>
+
+
+            <button
+                type="submit"
+                class="continue-btn"
+            >
+                Continue →
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+function addSubject() {
+
+    const container =
+        document.getElementById("subjects-container");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "subject-row";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            name="subjects"
+            placeholder="Enter subject"
+        >
+
+        <button
+            type="button"
+            class="remove-btn"
+            onclick="removeSubject(this)"
+        >
+            ×
+        </button>
+    `;
+
+    container.appendChild(row);
+}
+
+
+function removeSubject(button) {
+
+    const rows =
+        document.querySelectorAll(".subject-row");
+
+    if (rows.length > 1) {
+
+        button.parentElement.remove();
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>

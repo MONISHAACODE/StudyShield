@@ -1,0 +1,115 @@
+
+.break-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(10, 6, 16, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.break-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 32px 26px;
+    text-align: center;
+    color: var(--text-color, #FFFFFF);
+    background: var(--card-bg, #17111F);
+    border: 1px solid #493052;
+    border-radius: 24px;
+    box-shadow: 0 20px 65px rgba(236, 72, 153, 0.16);
+    animation: breakAppear 0.35s ease;
+}
+
+.break-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.break-label {
+    color: #EC4899;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.break-card h2 {
+    margin: 12px 0;
+    font-size: 28px;
+    background: linear-gradient(90deg, #EC4899, #A855F7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.break-message,
+.break-status {
+    color: var(--text-color, #FFFFFF);
+    opacity: 0.78;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.break-timer {
+    margin: 22px 0;
+    font-size: 48px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: #EC4899;
+}
+
+.break-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.break-actions button {
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.break-skip {
+    color: #FFFFFF;
+    background: transparent;
+    border: 1px solid #A855F7;
+}
+
+.break-resume {
+    color: #FFFFFF;
+    background: linear-gradient(100deg, #EC4899, #A855F7);
+    border: none;
+}
+
+@keyframes breakAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .break-card {
+        padding: 26px 18px;
+    }
+
+    .break-card h2 {
+        font-size: 24px;
+    }
+
+    .break-timer {
+        font-size: 42px;
+    }
+}
